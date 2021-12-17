@@ -1,32 +1,34 @@
 <template>
-  <div>
-    <div id="int">
-
-    </div>
-    <button v-for="i in Math.floor(items.length / 5)" :key="i" @click="show()">
-      {{ i }}
-    </button>
+  <div id="paymentsDisplay">
+    <!-- <div class="items" v-for="(e, index) in 5" :key="index" id="int">
+      {{ items[index] }}
+    </div> -->
+    <Pagination :items="items" @selectorClicked="showSelected"/>
   </div>
 </template>
 
 <script>
+import Pagination from "./Pagination.vue";
 export default {
+  components: {
+    Pagination
+  },
   props: {
     items: {
       type: Array,
       default: () => [],
     },
   },
-  methods: {
-    show() {
-      document.getElementById("int").innerHTML = `
-        <div class="items" v-for="(e, index) in 5" :key="index" id="int" v-html="items[index]">
-        
+  methods:{
+    showSelected(items){
+      if(items.length<=5) {
+        document.getElementById("paymentsDisplay").innerHTML = `
+        <div class="items" v-for="(e, index) in 5" :key="index" id="int" v-html="{{ items[index] }}">
         </div>
-      `;
-      console.log("Hello")
-    },
-  },
+        `;
+      }
+    }
+  }
 };
 </script>
 
