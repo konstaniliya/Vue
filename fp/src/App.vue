@@ -3,12 +3,10 @@
     <div class="wrapper">
       <header>
         <div class="title">My personal costs</div>
+        <div class="total" v-if="total">Total: {{ total }}</div>
       </header>
       <main>
-        <AddPaymentForm
-          @addNewPayment="addToPaymentList"
-          @clear="paymentsList = []"
-        />
+        <AddPaymentForm @clear="paymentsList = []" />
         <PaymentsDisplay :items="paymentsList" />
       </main>
     </div>
@@ -18,6 +16,7 @@
 <script>
 import AddPaymentForm from "./components/AddPaymentForm.vue";
 import PaymentsDisplay from "./components/PaymentsDisplay";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -28,35 +27,24 @@ export default {
   data() {
     return {
       show: true,
-      paymentsList: [],
     };
   },
-  methods: {
-    fetchData() {
-      return [
-        {
-          date: "28.03.2020",
-          category: "Food",
-          value: 111,
-        },
-        {
-          date: "29.03.2020",
-          category: "Food",
-          value: 12229,
-        },
-        {
-          date: "30.03.2020",
-          category: "Food",
-          value: 1323,
-        },
-      ];
-    },
-    addToPaymentList(data) {
-      this.paymentsList.push(data);
+  computed: {
+    ...mapGetters({ paymentsList: "getPaymentsList" }),
+    total() {
+      return this.$store.getters.getPaymentsListFullValuePrice;
     },
   },
+  methods: {
+    ...mapMutations({ fetch: "setPaymentsListData" }),
+    ...mapActions(['fetchData'])
+    
+  },
   created() {
-    this.paymentsList = this.fetchData();
+    // this.addPayment(this.fetchData());
+    // this.$store.dispatch('fetchData');
+    this.fetchData();
+    // this.$store.commit('setPaymentsListData', this.fetchData());
   },
 };
 </script>
