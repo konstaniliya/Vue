@@ -1,8 +1,8 @@
 <template>
   <div id="paymentsDisplay">
-    <!-- <div class="items" v-for="(e, index) in 5" :key="index" id="int">
-      {{ items[index] }}
-    </div> -->
+    <div class="items" v-for="item, idx in items" :key="idx" id="int">
+      {{ item }}
+    </div>
     <Pagination :items="items" @selectorClicked="showSelected"/>
   </div>
 </template>
