@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <button v-for="i in Math.floor(items.length / 5)" :key="i" @click="$emit('selectorClicked', i)">
-      {{ i }}
-    </button>
+  <div class="pagination_wrapper">
+    <div @click="onClickPage(cur - 1)">-</div>
+    <div
+      v-for="page in amount"
+      :key="page"
+      @click="onClickPage(page)"
+      :class="{ active: page === cur }"
+    >
+      {{ page }}
+    </div>
+    <div @click="onClickPage(cur + 1)">+</div>
   </div>
 </template>
 
@@ -10,14 +17,39 @@
 export default {
   name: "Pagination",
   props: {
-    items: {
-      type: Array,
-      default: () => [],
+    n: Number,
+    cur: Number,
+    length: Number,
+  },
+  computed: {
+    amount() {
+      return Math.ceil(this.length / this.n);
+    },
+  },
+  methods: {
+    onClickPage(p) {
+      if (p < 1 || p > this.amount) {
+        return;
+      }
+      this.$emit("paginate", p);
     },
   },
 };
-
 </script>
 
-<style>
+<style lang="scss" scoped>
+.pagination {
+  &_wrapper {
+    display: flex;
+    justify-content: center;
+    &>div {
+      cursor: pointer;
+      padding: 10px;
+    }
+  }
+}
+.active {
+  background: #030303;
+  color: white;
+}
 </style>
