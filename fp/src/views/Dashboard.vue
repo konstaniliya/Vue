@@ -5,9 +5,12 @@
     <Pagination
       :cur="page"
       :n="n"
-      :length="paymentsList.length"
+      :length="12"
       @paginate="changePage"
     />
+    <router-link to="/dashboard/Food?value=200" @click="newFunc">Food payment 200</router-link> /
+    <router-link to="/dashboard/Transport?value=50" @click="newFunc">Transport payment 50</router-link> /
+    <router-link to="/dashboard/Entertainment?value=2000" @click="newFunc">Entartainment payment 2000</router-link>
   </main>
 </template>
 
@@ -26,7 +29,7 @@ export default {
   data() {
     return {
       show: true,
-      n: 10,
+      n: 3,
       page: 1,
     };
   },
@@ -36,21 +39,40 @@ export default {
       return this.$store.getters.getPaymentsListFullValuePrice;
     },
     currentElements() {
-      const { n, page } = this;
-      return this.paymentsList.slice(n * (page - 1), n * (page - 1) + n);
+      return this.paymentsList.slice(this.n * (this.page - 1), this.n * (this.page - 1) + this.n);
     },
   },
   methods: {
-    ...mapMutations({ fetch: "setPaymentsListData" }),
+    ...mapMutations({
+      fetch: "setPaymentsListData",
+      addNew: "addPaymentListData",
+    }),
     ...mapActions(["fetchData"]),
     changePage(p) {
       this.page = p;
+      this.fetchData(p);
     },
+    newFunc(){
+      
+    const data = {
+      date: this.getCurrentDate(),
+      category: "",
+      value: "",
+    };
+    this.data.category = this.$route.params.category;
+    this.data.value = this.$route.query.value;
+    this.addNew(data);
+
+    }
   },
-  created() {
+  async created() {
     // this.addPayment(this.fetchData());
     // this.$store.dispatch('fetchData');
-    this.fetchData();
+    await this.fetchData(1);
+    if (this.$route.params?.page) {
+      this.page = Number(this.$route.params.page);
+    }
+
     // this.$store.commit('setPaymentsListData', this.fetchData());
   },
 };
