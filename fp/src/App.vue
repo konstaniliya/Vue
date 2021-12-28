@@ -2,14 +2,14 @@
   <div id="app">
     <div class="wrapper">
       <header>
-        <a href="#dashboard">Dashboard</a> /
-        <a href="#notfound">NotFound</a> /
-        <a href="#about">About</a>
+        <a href="dashboard">Dashboard</a> / 
+        <a href="notfound">NotFound</a> /
+        <a href="about">About</a>
       </header>
       <main>
-        <dashboard v-if="page === 'dashboard'"/>
-        <about v-else-if="page === 'about'"/>
-        <not-found v-else/>
+        <dashboard v-if="page === 'dashboard'" />
+        <about v-else-if="page === 'about'" />
+        <not-found v-else />
       </main>
     </div>
   </div>
@@ -20,36 +20,42 @@ import Dashboard from "./views/Dashboard.vue";
 import About from "./views/About.vue";
 import NotFound from "./views/NotFound.vue";
 
-
 export default {
   components: { Dashboard,About,NotFound },
   name: "App",
-  comments: { 
+  comments: {
     Dashboard,
     About,
     NotFound,
   },
   data() {
     return {
-      page: ""
+      page: "",
     };
   },
   methods: {
-    setPage(){
-      this.page = location.hash.slice(1);
-    }
+    setPage() {
+      this.page = location.pathname.slice(1);
+    },
   },
   mounted() {
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        history.pushState({}, "", link.href);
+        this.setPage();
+      });
+    });
     this.setPage();
-    window.addEventListener('hashchange', ()=> {
+    window.addEventListener("popstate", () => {
       this.setPage();
     });
   },
-
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
