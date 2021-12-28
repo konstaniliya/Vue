@@ -2,6 +2,9 @@
   <div id="app">
     <div class="wrapper">
       <header>
+        <a href="#Dashboard">Dashboard</a> /
+        <a href="#NotFound">NotFound</a> /
+        <a href="#About">About</a>
         <div class="title">My personal costs</div>
         <div class="total" v-if="total">Total: {{ total }}</div>
       </header>
