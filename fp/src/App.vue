@@ -2,73 +2,54 @@
   <div id="app">
     <div class="wrapper">
       <header>
-        <a href="#Dashboard">Dashboard</a> /
-        <a href="#NotFound">NotFound</a> /
-        <a href="#About">About</a>
-        <div class="title">My personal costs</div>
-        <div class="total" v-if="total">Total: {{ total }}</div>
+        <a href="#dashboard">Dashboard</a> /
+        <a href="#notfound">NotFound</a> /
+        <a href="#about">About</a>
       </header>
       <main>
-        <AddPaymentForm @clear="paymentsList = []" />
-        <PaymentsDisplay :items="currentElements" />
-        <Pagination
-          :cur="page"
-          :n="n"
-          :length="paymentsList.length"
-          @paginate="changePage"
-        />
+        <dashboard v-if="page === 'dashboard'"/>
+        <about v-else-if="page === 'about'"/>
+        <not-found v-else/>
       </main>
     </div>
   </div>
 </template>
 
 <script>
-import AddPaymentForm from "./components/AddPaymentForm.vue";
-import PaymentsDisplay from "./components/PaymentsDisplay";
-import Pagination from "./components/Pagination.vue";
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import Dashboard from "./views/Dashboard.vue";
+import About from "./views/About.vue";
+import NotFound from "./views/NotFound.vue";
+
 
 export default {
+  components: { Dashboard,About,NotFound },
   name: "App",
-  components: {
-    PaymentsDisplay,
-    AddPaymentForm,
-    Pagination,
+  comments: { 
+    Dashboard,
+    About,
+    NotFound,
   },
   data() {
     return {
-      show: true,
-      n: 10,
-      page: 1,
+      page: ""
     };
   },
-  computed: {
-    ...mapGetters({ paymentsList: "getPaymentsList" }),
-    total() {
-      return this.$store.getters.getPaymentsListFullValuePrice;
-    },
-    currentElements() {
-      const { n, page } = this;
-      return this.paymentsList.slice(n * (page - 1), n * (page - 1) + n);
-    },
-  },
   methods: {
-    ...mapMutations({ fetch: "setPaymentsListData" }),
-    ...mapActions(["fetchData"]),
-    changePage(p) {
-      this.page = p;
-    },
+    setPage(){
+      this.page = location.hash.slice(1);
+    }
   },
-  created() {
-    // this.addPayment(this.fetchData());
-    // this.$store.dispatch('fetchData');
-    this.fetchData();
-    // this.$store.commit('setPaymentsListData', this.fetchData());
+  mounted() {
+    this.setPage();
+    window.addEventListener('hashchange', ()=> {
+      this.setPage();
+    });
   },
+
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
