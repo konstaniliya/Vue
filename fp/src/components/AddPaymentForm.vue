@@ -6,7 +6,6 @@
         <option v-for="(category,index) in categoryList" :key="index" :value="category"> {{category}} </option>
       </select>
     </div>
-    <input placeholder="category" v-model="category" /> <br />
     <input placeholder="value" type="number" v-model.number="value" />
     <button @click="onClick">Save!</button>
     <button @click="$emit('clear')">Clear all</button>
@@ -43,16 +42,19 @@ export default {
         category: this.category,
         value: this.value,
       };
-      this.$emit("addNewPayment", data);
       this.addPaymentListData(data);
+      this.$emit("addNewPayment", data);
     },
   },
-  async mounted(){
-    if(!this.fetchCategory?.length){
-      await this.fetchCategory();
-      this.category = this.categoryList[0];
+  async mounted() {
+    await this.fetchCategory();
+    if(this.$route.params && this.$route.params.category) {
+      this.category = this.$route.params.category
     }
-  }
+    if(this.$route.query?.value){
+      this.value = Number(this.$route.query.value)
+    }
+  },
 };
 </script>
 

@@ -9,29 +9,62 @@
       <main>
         <router-view />
       </main>
+      <transition name="fade">
+      <modal-window-add-payment-form
+          :settings="settings"
+          :componentName="componentName"
+          v-if="componentName"
+        />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-
+import { mapActions } from "vuex";
 
 export default {
+    components: {
+    ModalWindowAddPaymentForm: () =>
+      import(
+        /* webpackChunkName: "Modal" */ "./components/ModalWindowAddPaymentForm.vue"
+      ),
+  },
   name: "App",
-
   data() {
     return {
+      settings: {},
+      componentName: "",
     };
   },
   methods: {
+     ...mapActions(["fetchData"]),
     goToPageNotFound(){
       if(this.$router.name === 'notfound') return
       this.$router.push({
         name: "notfound"
       });
-    }
+    },
+    onShow({ name, settings }) {
+      this.componentName = name;
+      this.settings = settings;
+    },
+    onHide() {
+      this.settings = {};
+      this.componentName = "";
+    },
   },
-
+   async created() {
+    await this.fetchData();
+  },
+mounted() {
+    this.$modal.EventBus.$on("show", this.onShow);
+    this.$modal.EventBus.$on("hide", this.onHide);
+  },
+  beforeDestroy() {
+    this.$modal.EventBus.$off("show");
+    this.$modal.EventBus.$off("hide");
+  },
 };
 </script>
 
@@ -46,5 +79,15 @@ export default {
 }
 h1 {
   font-size: 100px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
