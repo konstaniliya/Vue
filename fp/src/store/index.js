@@ -54,7 +54,7 @@ export default new Vuex.Store({
         fetchCategory({ commit }) {
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    const items = ["Sport", "Education", "Internet", "Food", "Transport"];
+                    const items = ["Sport", "Education", "Internet", "Food", "Transport","Entertainment"];
                     resolve(items);
                 }, 2000);
             }).then((res) => commit("setCategoryData", res));
