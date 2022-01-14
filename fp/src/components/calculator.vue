@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="display">
-      <input v-model.number="operand1" type="number" />
-      <input v-model.number="operand2" type="number" />
+      <input v-model.number="operand1" type="number" name="operand1" />
+      <input v-model.number="operand2" type="number" name="operand2"/>
       = {{ result }}
     </div>
     <div class="keyboard">
@@ -11,6 +11,7 @@
         v-bind:key="operand"
         v-bind:title="operand"
         @click="calculate(operand)"
+        :name="operand"
       >
         {{ operand }}
       </button>

@@ -1,7 +1,7 @@
 <template>
   <div>
     Not found
-
+  <calculator/>
     <router-link
       :to="{
         name: 'addPayment',
@@ -39,7 +39,10 @@
 </template>
 
 <script>
-export default {};
+import calculator from '../components/Calculator.vue';
+export default {
+  components: { calculator },
+};
 </script>
 
 <style>

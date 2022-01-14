@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import calculator from './calculator.vue';
+import calculator from './Calculator.vue';
 export default {
   components: { calculator },
   name: "HelloWorld",
