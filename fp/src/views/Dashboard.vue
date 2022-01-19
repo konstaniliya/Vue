@@ -37,7 +37,7 @@
 
 <script>
 import PaymentsDisplay from "../components/PaymentsDisplay";
-// import Pagination from "../components/Pagination.vue";
+import Pagination from "../components/Pagination.vue";
 import { mapMutations, mapGetters, mapActions } from "vuex";
 import AddPaymentForm from '../components/AddPaymentForm.vue';
 // import MyButton from '../components/MyButton.vue';
@@ -48,7 +48,7 @@ export default {
    PaymentsDisplay,
     AddPaymentForm,
     // MyButton,
-    // Pagination,
+    Pagination,
   },
   data() {
     return {
