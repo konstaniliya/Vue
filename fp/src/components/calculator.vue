@@ -31,6 +31,7 @@
           v-for="item in buttons"
           v-bind:key="item"
           @click="appendNum(item)"
+          :name="item"
         >
           {{ item }}
         </button>

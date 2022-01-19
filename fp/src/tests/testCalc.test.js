@@ -1,5 +1,9 @@
-import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue';
+import {
+    mount
+} from '@vue/test-utils'
+import {
+    nextTick
+} from 'vue';
 import regeneratorRuntime from "regenerator-runtime"
 
 import Calculator from "../components/Calculator.vue"
@@ -34,12 +38,12 @@ describe('Calculator', () => {
         const sumBtn = wrapper.find('button[name="+"]');
         sumBtn.trigger('click');
 
-        await nextTick(()=>{
+        await nextTick(() => {
             expect(wrapper.vm.result).toBe(10);
         })
     })
     // HW
-    it('test sub',async () => {
+    it('test sub', async () => {
         const wrapper = mount(Calculator);
 
         const operand1 = wrapper.find("input[name=operand1]");
@@ -53,11 +57,11 @@ describe('Calculator', () => {
         const sumBtn = wrapper.find('button[name="-"]');
         sumBtn.trigger('click');
 
-        await nextTick(()=>{
+        await nextTick(() => {
             expect(wrapper.vm.result).toBe(0);
         })
     })
-    it('test mul',async () => {
+    it('test mul', async () => {
         const wrapper = mount(Calculator);
 
         const operand1 = wrapper.find("input[name=operand1]");
@@ -71,11 +75,11 @@ describe('Calculator', () => {
         const sumBtn = wrapper.find('button[name="*"]');
         sumBtn.trigger('click');
 
-        await nextTick(()=>{
+        await nextTick(() => {
             expect(wrapper.vm.result).toBe(18);
         })
     })
-    it('test devide',async () => {
+    it('test devide', async () => {
         const wrapper = mount(Calculator);
 
         const operand1 = wrapper.find("input[name=operand1]");
@@ -89,11 +93,11 @@ describe('Calculator', () => {
         const sumBtn = wrapper.find('button[name="/"]');
         sumBtn.trigger('click');
 
-        await nextTick(()=>{
-            expect(wrapper.vm.result).toBe(6/4);
+        await nextTick(() => {
+            expect(wrapper.vm.result).toBe(6 / 4);
         })
     })
-    it('test int.devide',async () => {
+    it('test int.devide', async () => {
         const wrapper = mount(Calculator);
 
         const operand1 = wrapper.find("input[name=operand1]");
@@ -107,11 +111,11 @@ describe('Calculator', () => {
         const sumBtn = wrapper.find('button[name="/int"]');
         sumBtn.trigger('click');
 
-        await nextTick(()=>{
+        await nextTick(() => {
             expect(wrapper.vm.result).toBe(1);
         })
     })
-    it('test pow',async () => {
+    it('test pow', async () => {
         const wrapper = mount(Calculator);
 
         const operand1 = wrapper.find("input[name=operand1]");
@@ -125,8 +129,23 @@ describe('Calculator', () => {
         const sumBtn = wrapper.find('button[name="pow"]');
         sumBtn.trigger('click');
 
-        await nextTick(()=>{
+        await nextTick(() => {
             expect(wrapper.vm.result).toBe(25);
         })
     })
+
+    it('keyboard', async () => {
+        const wrapper = mount(Calculator);
+        const keyBoardVision = wrapper.find("input[name=isVisible]");
+        // keyBoardVision.setChecked(true);
+        keyBoardVision.trigger('click');
+        // expect(keyBoardVision.element.checked).toBeTruthy();
+
+        const button_0 = wrapper.find('button[name="0"]');
+        await nextTick(() => {
+            expect(button_0.exists()).toBe(true);
+        })
+    })
+
+
 })
