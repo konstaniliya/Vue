@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import calculator from '../components/Calculator.vue';
+import calculator from '../components/calculator.vue';
 export default {
   components: { calculator },
 };

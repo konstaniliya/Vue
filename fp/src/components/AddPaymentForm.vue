@@ -1,15 +1,25 @@
 <template>
-  <div>
-    <input placeholder="date" v-model="date" /> <br />
-    <div class="categoryList">
-      <select v-model="category">
-        <option v-for="(category,index) in categoryList" :key="index" :value="category"> {{category}} </option>
-      </select>
+  <v-card class="text-left pa-8">
+    <v-text-field v-model="date" label="Date"/>
+    <v-select
+      :items="categoryList"
+      label="Category"
+      v-model="category"
+    >
+    </v-select>
+    <v-text-field v-model.number="date" label="Value"/>
+    <div>
+      <!-- <input placeholder="date" v-model="date" /> <br />
+      <div class="categoryList">
+        <select v-model="category">
+          <option v-for="(category,index) in categoryList" :key="index" :value="category"> {{category}} </option>
+        </select>
+      </div>
+      <input placeholder="value" type="number" v-model.number="value" /> -->
+      <v-btn @click="onClick">Save!</v-btn>
+      <v-btn @click="$emit('clear')" class="ml-4">Clear all</v-btn>
     </div>
-    <input placeholder="value" type="number" v-model.number="value" />
-    <button @click="onClick">Save!</button>
-    <button @click="$emit('clear')">Clear all</button>
-  </div>
+  </v-card>
 </template>
 
 <script>
