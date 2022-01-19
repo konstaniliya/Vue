@@ -137,14 +137,12 @@ describe('Calculator', () => {
     it('keyboard', async () => {
         const wrapper = mount(Calculator);
         const keyBoardVision = wrapper.find("input[name=isVisible]");
-        // keyBoardVision.setChecked(true);
-        keyBoardVision.trigger('click');
-        // expect(keyBoardVision.element.checked).toBeTruthy();
+        await keyBoardVision.setChecked(true);
+       
+        expect(keyBoardVision.element.checked).toBeTruthy();
 
-        const button_0 = wrapper.find('button[name="0"]');
-        await nextTick(() => {
-            expect(button_0.exists()).toBe(true);
-        })
+        expect(wrapper.find('button[name="0"]').exists()).toBe(true);
+    
     })
 
 
