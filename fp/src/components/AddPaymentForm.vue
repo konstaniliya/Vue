@@ -7,7 +7,7 @@
       v-model="category"
     >
     </v-select>
-    <v-text-field v-model.number="date" label="Value"/>
+    <v-text-field v-model.number="value" label="Value"/>
     <div>
       <!-- <input placeholder="date" v-model="date" /> <br />
       <div class="categoryList">

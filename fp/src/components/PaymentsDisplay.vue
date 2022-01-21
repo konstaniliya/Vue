@@ -20,6 +20,9 @@
     <v-col>{{item.category}}</v-col>
     <v-col :cols="2">{{item.value}}</v-col>
     <edit-window :ident="idx" /> 
+
+
+
   </v-row>   
     <Pagination :items="items" @selectorClicked="showSelected"/>
   </v-container>

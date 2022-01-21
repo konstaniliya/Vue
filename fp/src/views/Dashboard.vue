@@ -14,6 +14,9 @@
       </template>
         <add-payment-form @addNewPayment="dialog=false"/>
       </v-dialog>
+      
+
+
       <!-- <my-button><template #icon>
         <v-icon>mdi-plus</v-icon>
         </template>Click me</my-button>
