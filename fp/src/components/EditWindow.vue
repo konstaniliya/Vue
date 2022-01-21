@@ -30,9 +30,9 @@
               <!-- <option v-for="(category,index) in categoryList" :key="index" :value="category"> {{category}} </option> -->
               </v-select>
             <v-text-field v-model.number="value" label="Value"/>
-            <v-card-action>
+            <v-card-actions>
               <v-btn @click="onClick">Save!</v-btn>
-            </v-card-action>
+            </v-card-actions>
           </div>
         </v-card>
     </v-dialog>
@@ -75,7 +75,6 @@ export default {
         value: this.value,
       };
       this.editPaymentListData({ loadData: data, position: this.ident });
-      console.log(data);
       this.editorIsShow = false;
     },
     onClickEdit() {

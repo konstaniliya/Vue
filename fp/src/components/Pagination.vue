@@ -32,6 +32,7 @@ export default {
         return;
       }
       this.$emit("paginate", p);
+      this.$emit("getCurrentPage",p)
     },
   },
 };

@@ -14,12 +14,12 @@
       Value
     </v-col>
   </v-row>
-  <v-row v-for="(item, idx) in items" :key="idx">
+  <v-row v-for="(item) in items" :key="item.id">
     <v-col :cols="1">{{item.id}} </v-col>
     <v-col>{{item.date}}</v-col>
     <v-col>{{item.category}}</v-col>
     <v-col :cols="2">{{item.value}}</v-col>
-    <edit-window :ident="idx" /> 
+    <edit-window :ident="item.id" /> 
 
 
 
@@ -64,7 +64,7 @@ export default {
 
     },
     onDelete(ident){
-      console.log(ident);
+      console.log("ident",ident);
       this.deletePaymentListData({start: ident, count: 1});
     },
 
